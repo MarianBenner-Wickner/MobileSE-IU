@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleEventObs
 
     public void buttonClicked(View view) {
         Button btn = findViewById(R.id.button);
-        btn.setText("Thank you!");
+        btn.setText(getResources().getString(R.string.thank_you));
     }
 
     @Override
