@@ -7,4 +7,5 @@
     <string name="iulogo">IU Logo</string>
     <string name="getmeback">bring mich zurück!</string>
     <string name="switchactivity">wechsle</string>
+    <string name="startservice">Service starten</string>
 </resources>

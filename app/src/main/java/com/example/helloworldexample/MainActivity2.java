@@ -18,4 +18,8 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void startService(View view) {
+        Intent serviceStarter = new Intent(this, MyService.class);
+        startService(serviceStarter);
+    }
 }
