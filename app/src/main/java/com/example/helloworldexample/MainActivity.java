@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleEventObs
     public void buttonClicked(View view) {
         Button btn = findViewById(R.id.button);
         btn.setText(getResources().getString(R.string.thank_you));
+    }
+
+    public void button2Clicked(View view) {
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
     }
 
     @Override

@@ -5,4 +5,6 @@
     <string name="title">Meine erste App!</string>
     <string name="clickme">Klick mich!</string>
     <string name="iulogo">IU Logo</string>
+    <string name="getmeback">bring mich zurück!</string>
+    <string name="switchactivity">wechsle</string>
 </resources>
