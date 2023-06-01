@@ -11,7 +11,6 @@ import android.os.Process;
 import android.widget.Toast;
 
 public class MyService extends Service {
-    private ServiceHandler serviceHandler;
 
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) {
@@ -29,16 +28,13 @@ public class MyService extends Service {
     }
 
     @Override
-    public void onCreate() {
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(this, "service (" + startId + ") starting", Toast.LENGTH_SHORT).show();
+
         HandlerThread thread = new HandlerThread("ServiceStartArguments",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
-        serviceHandler = new ServiceHandler(thread.getLooper());
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
+        ServiceHandler serviceHandler = new ServiceHandler(thread.getLooper());
 
         Message msg = serviceHandler.obtainMessage();
         msg.arg1 = startId;
