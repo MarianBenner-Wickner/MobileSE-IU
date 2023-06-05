@@ -6,12 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity2 extends AppCompatActivity {
     private static final int NUM_PHILOSOPHERS = 5;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +20,21 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void startPhilosophers(View view) {
-        List<Chopstick> chopsticks = new ArrayList<>();
-        for (int i = 0; i < NUM_PHILOSOPHERS; i++) {
-            chopsticks.add(new Chopstick());
+        Philosopher[] philosophers = new Philosopher[NUM_PHILOSOPHERS];
+        Object[] forks = new Object[philosophers.length];
+
+        for (int i = 0; i < forks.length; i++) {
+            forks[i] = new Object();
         }
 
-        List<Philosopher> philosophers = new ArrayList<>();
-        for (int i = 0; i < NUM_PHILOSOPHERS; i++) {
-            Chopstick left = chopsticks.get(i);
-            Chopstick right = chopsticks.get((i + 1) % NUM_PHILOSOPHERS);
-            philosophers.add(new Philosopher(i, left, right));
-        }
+        for (int i = 0; i < philosophers.length; i++) {
+            Object leftFork = forks[i];
+            Object rightFork = forks[(i + 1) % forks.length];
 
-        for (Philosopher p : philosophers) {
-            p.start();
+            philosophers[i] = new Philosopher(leftFork, rightFork);
+
+            Thread t = new Thread(philosophers[i], "Philosopher " + (i + 1));
+            t.start();
         }
     }
 }

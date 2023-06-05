@@ -1,44 +1,33 @@
 package com.example.helloworldexample;
-
 import android.util.Log;
 
-import java.util.Random;
-
 public class Philosopher extends Thread {
-    int id;
-    private final Chopstick leftChopstick, rightChopstick;
-    private final Random random;
-
-    public Philosopher(int id, Chopstick left, Chopstick right) {
-        this.id = id;
-        leftChopstick = left;
-        rightChopstick = right;
-        random = new Random();
+    private final Object leftFork;
+    private final Object rightFork;
+    public Philosopher(Object leftFork, Object rightFork) {
+        this.leftFork = leftFork;
+        this.rightFork = rightFork;
     }
-
+    private void doAction(String action) throws InterruptedException {
+        Log.i("Philosopher", this.getName() + " " + action);
+        Thread.sleep(((int) (Math.random() * 100)));
+    }
     @Override
     public void run() {
         try {
             while (true) {
-                think();
-                synchronized (leftChopstick) {
-                    synchronized (rightChopstick) {
-                        eat();
+                doAction(" Thinking");
+                synchronized (leftFork) {
+                    doAction(" Picked up left fork");
+                    synchronized (rightFork) {
+                        doAction(" Picked up right fork - eating");
+                        doAction(" Put down right fork");
                     }
+                    doAction(" Put down left fork. Back to thinking");
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
-    }
-
-    private void think() throws InterruptedException {
-        Log.d("Philosopher", "Philosopher " + id + " is thinking...");
-        Thread.sleep(random.nextInt(1000));
-    }
-
-    private void eat() throws InterruptedException {
-        Log.d("Philosopher", "Philosopher " + id + " is eating...");
-        Thread.sleep(random.nextInt(1000));
     }
 }
